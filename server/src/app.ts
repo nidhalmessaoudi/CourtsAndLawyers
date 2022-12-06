@@ -1,3 +1,5 @@
+import path from "path";
+
 import express from "express";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
@@ -6,6 +8,13 @@ import cors from "cors";
 
 const app = express();
 
+// Static Files
+app.use(express.static(path.join(__dirname, "public")));
+
+// Template Engine
+app.set("view engine", "ejs");
+
+// CORS
 app.use(cors());
 
 // Attach HTTP Headers

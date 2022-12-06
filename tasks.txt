@@ -1,0 +1,6 @@
+ -> Setup a custom user authentication system dedicated for the platform with the help of express-session and bcrypt.
+ -> Setup main API routes, controllers, and data models.
+ -> Build an error-handling mechanism for the API.
+ -> Make the API production-ready.
+ -> Setup the client-side.
+ -> Start designing pages.
