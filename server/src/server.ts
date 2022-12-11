@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { MongoClient } from "mongodb";
 
 dotenv.config();
 
-import app from "./app";
+import app, { setupSession } from "./app";
 import uncaughtExceptionHandler from "./utils/uncaughtExceptionHandler";
 import rejectionHandler from "./utils/rejectionHandler";
 
@@ -11,7 +12,9 @@ import rejectionHandler from "./utils/rejectionHandler";
   // Handle Uncaught Exceptions
   uncaughtExceptionHandler();
 
-  await mongoose.connect(process.env.DB_HOST!);
+  const dbConnection = await mongoose.connect(process.env.DB_HOST!);
+
+  setupSession(dbConnection.connection.getClient());
 
   console.log("DB connection successful!");
 
