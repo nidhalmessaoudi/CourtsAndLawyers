@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 interface IUser {
   email: string;
@@ -9,16 +10,23 @@ interface IUser {
 const userSchema = new mongoose.Schema<IUser>({
   email: {
     type: String,
-    required: [true, "A user must have an email!"],
+    required: [true, "The email is missing."],
   },
   name: {
     type: String,
-    required: [true, "A user must have a name!"],
+    required: [true, "The name is missing."],
   },
   password: {
     type: String,
-    required: [true, "A user must have a password!"],
+    required: [true, "The password is missing."],
   },
+});
+
+// Hash password before saving the doc
+userSchema.pre("save", async function (next) {
+  const hashedPassword = await bcrypt.hash(this.password, 12);
+  this.password = hashedPassword;
+  next();
 });
 
 export default mongoose.model<IUser>("User", userSchema);

@@ -10,6 +10,8 @@ import MongoStore from "connect-mongo";
 import { MongoClient } from "mongodb";
 import { v4 as uuid } from "uuid";
 
+import authRoutes from "./routes/authRoutes";
+
 const app = express();
 
 // CORS
@@ -21,6 +23,7 @@ app.set("trust proxy", 1);
 // Session
 export function setupSession(client: MongoClient) {
   const httpOnly = process.env.MODE === "production" ? true : false;
+
   app.use(
     session({
       secret: process.env.SESSION_SECRET!,
@@ -45,13 +48,15 @@ export function setupSession(client: MongoClient) {
 app.use(express.static(path.join(__dirname, "public")));
 
 // Template Engine
-app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 
 // Attach HTTP Headers
 app.use(helmet());
 
 // JSON Body Parser
 app.use(express.json({ limit: "50kb" }));
+app.use(express.urlencoded({ extended: true, limit: "50kb" }));
 
 // Data Sanitization
 app.use(mongoSanitize());
@@ -63,5 +68,7 @@ app.use(hpp());
 app.get("/", (req, res) => {
   res.end("Hello from the other side!!!");
 });
+
+app.use(authRoutes);
 
 export default app;
