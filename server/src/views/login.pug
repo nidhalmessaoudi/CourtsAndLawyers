@@ -1,4 +1,6 @@
 include ./includes/head
+if error
+    p= error
 form(action="/login", method="POST")
     label(for="email") Email 
     input(type="text" name="email" id="email" placeHolder="Your Email")

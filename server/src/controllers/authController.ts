@@ -24,14 +24,26 @@ async function createAndSaveUserSession(
   });
 }
 
-export function isAuthenticated(nextRoute?: string) {
+export function isAuthenticated(fallbackRoute: string) {
   return function (req: Request, res: Response, next: NextFunction) {
     if (req.session.user) {
-      return nextRoute ? res.redirect(nextRoute) : next();
+      return next();
     } else {
-      res.redirect("/login");
+      res.redirect(fallbackRoute);
     }
   };
+}
+
+export function redirectIfAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.session.user) {
+    res.redirect("/dashboard");
+  } else {
+    next();
+  }
 }
 
 export function getSignUp(req: Request, res: Response) {
@@ -94,8 +106,12 @@ export async function postLogIn(
 }
 
 export async function getDashboard(req: Request, res: Response) {
-  const user = await User.findOne({ _id: req.session.user });
-  res.end(
-    `Hello back ${user?.name}, you have accessed this route because you are logged in!`
-  );
+  try {
+    const user = await User.findOne({ _id: req.session.user });
+    res.send(
+      `Hello back ${user?.name}, you have accessed this route because you are logged in!`
+    );
+  } catch (err) {
+    console.log(err);
+  }
 }

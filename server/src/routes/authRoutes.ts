@@ -3,6 +3,14 @@ import * as authController from "../controllers/authController";
 
 const router = express.Router();
 
+router.get(
+  "/dashboard",
+  authController.isAuthenticated("/login"),
+  authController.getDashboard
+);
+
+router.use(authController.redirectIfAuthenticated);
+
 router
   .route("/login")
   .get(authController.getLogIn)
@@ -12,11 +20,5 @@ router
   .route("/signup")
   .get(authController.getSignUp)
   .post(authController.postSignUp);
-
-router.get(
-  "/dashboard",
-  authController.isAuthenticated,
-  authController.getDashboard
-);
 
 export default router;
