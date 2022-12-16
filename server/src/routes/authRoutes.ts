@@ -13,4 +13,10 @@ router
   .get(authController.getSignUp)
   .post(authController.postSignUp);
 
+router.get(
+  "/dashboard",
+  authController.isAuthenticated,
+  authController.getDashboard
+);
+
 export default router;

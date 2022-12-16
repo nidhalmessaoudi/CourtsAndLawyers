@@ -4,7 +4,7 @@ import { MongoClient } from "mongodb";
 
 dotenv.config();
 
-import app, { setupSession } from "./app";
+import app, { setupSessionAndRunMiddlewares } from "./app";
 import uncaughtExceptionHandler from "./utils/uncaughtExceptionHandler";
 import rejectionHandler from "./utils/rejectionHandler";
 
@@ -14,7 +14,7 @@ import rejectionHandler from "./utils/rejectionHandler";
 
   const dbConnection = await mongoose.connect(process.env.DB_HOST!);
 
-  setupSession(dbConnection.connection.getClient());
+  setupSessionAndRunMiddlewares(dbConnection.connection.getClient());
 
   console.log("DB connection successful!");
 

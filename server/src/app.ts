@@ -14,6 +14,13 @@ import authRoutes from "./routes/authRoutes";
 
 const app = express();
 
+// Session type declaration
+declare module "express-session" {
+  export interface SessionData {
+    user: string;
+  }
+}
+
 // CORS
 app.use(cors());
 
@@ -21,8 +28,8 @@ app.use(cors());
 app.set("trust proxy", 1);
 
 // Session
-export function setupSession(client: MongoClient) {
-  const httpOnly = process.env.MODE === "production" ? true : false;
+export function setupSessionAndRunMiddlewares(client: MongoClient) {
+  const httpOnly = process.env.NODE_ENV === "production" ? true : false;
 
   app.use(
     session({
@@ -42,33 +49,33 @@ export function setupSession(client: MongoClient) {
       unset: "keep",
     })
   );
+
+  // Static Files
+  app.use(express.static(path.join(__dirname, "public")));
+
+  // Template Engine
+  app.set("views", path.join(__dirname, "views"));
+  app.set("view engine", "pug");
+
+  // Attach HTTP Headers
+  app.use(helmet());
+
+  // JSON Body Parser
+  app.use(express.json({ limit: "50kb" }));
+  app.use(express.urlencoded({ extended: true, limit: "50kb" }));
+
+  // Data Sanitization
+  app.use(mongoSanitize());
+
+  // Prevent Parameter Pollution
+  app.use(hpp());
+
+  // Main Routes
+  app.get("/", (req, res) => {
+    res.end("Hello from the other side!!!");
+  });
+
+  app.use(authRoutes);
 }
-
-// Static Files
-app.use(express.static(path.join(__dirname, "public")));
-
-// Template Engine
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-
-// Attach HTTP Headers
-app.use(helmet());
-
-// JSON Body Parser
-app.use(express.json({ limit: "50kb" }));
-app.use(express.urlencoded({ extended: true, limit: "50kb" }));
-
-// Data Sanitization
-app.use(mongoSanitize());
-
-// Prevent Parameter Pollution
-app.use(hpp());
-
-// Main Routes
-app.get("/", (req, res) => {
-  res.end("Hello from the other side!!!");
-});
-
-app.use(authRoutes);
 
 export default app;

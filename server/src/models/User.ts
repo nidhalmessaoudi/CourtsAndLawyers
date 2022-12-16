@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import bcrypt from "bcryptjs";
 
 interface IUser {
@@ -7,10 +7,18 @@ interface IUser {
   password: string;
 }
 
-const userSchema = new mongoose.Schema<IUser>({
+interface IUserMethods {
+  isCorrectPassword: (
+    providedPassword: string,
+    actualPassword: string
+  ) => Promise<boolean>;
+}
+
+const userSchema = new mongoose.Schema<IUser, {}, IUserMethods>({
   email: {
     type: String,
     required: [true, "The email is missing."],
+    unique: true,
   },
   name: {
     type: String,
@@ -19,6 +27,7 @@ const userSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
     required: [true, "The password is missing."],
+    select: false,
   },
 });
 
@@ -29,4 +38,14 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-export default mongoose.model<IUser>("User", userSchema);
+// Password checking
+userSchema.methods.isCorrectPassword = async function (
+  providedPassword: string,
+  actualPassword: string
+) {
+  return await bcrypt.compare(providedPassword, actualPassword);
+};
+
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+export default mongoose.model<IUser, UserModel>("User", userSchema);
