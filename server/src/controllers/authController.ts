@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import K from "../K";
 import User from "../models/User";
+import AppError from "../utils/AppError";
 
-async function createAndSaveUserSession(
+function createAndSaveUserSession(
   req: Request,
   next: NextFunction,
   userId: string,
@@ -47,11 +48,11 @@ export function redirectIfAuthenticated(
 }
 
 export function getSignUp(req: Request, res: Response) {
-  res.render("signup", { title: `Sign Up | ${K.brand}` });
+  res.render("signup", { title: `Sign Up | ${K.BRAND}` });
 }
 
 export function getLogIn(req: Request, res: Response) {
-  res.render("login", { title: `Login | ${K.brand}` });
+  res.render("login", { title: `Login | ${K.BRAND}` });
 }
 
 export async function postSignUp(
@@ -66,11 +67,7 @@ export async function postSignUp(
       res.redirect("/dashboard");
     });
   } catch (err) {
-    const error = err as Error;
-    res.render("signup", {
-      title: `Sign Up | ${K.brand}`,
-      error: error.message,
-    });
+    return next(err);
   }
 }
 
@@ -99,7 +96,7 @@ export async function postLogIn(
   } catch (err) {
     const error = err as Error;
     res.render("login", {
-      title: `Login | ${K.brand}`,
+      title: `Login | ${K.BRAND}`,
       error: error.message,
     });
   }
@@ -109,9 +106,17 @@ export async function getDashboard(req: Request, res: Response) {
   try {
     const user = await User.findOne({ _id: req.session.user });
     res.send(
-      `Hello back ${user?.name}, you have accessed this route because you are logged in!`
+      `Hello back ${user?.name}, you have accessed this route because you are logged in!
+      <a href="/logout">Log Out</a>
+      `
     );
   } catch (err) {
     console.log(err);
   }
+}
+
+export function getLogOut(req: Request, res: Response) {
+  req.session.destroy(function (err) {
+    res.redirect("/login");
+  });
 }

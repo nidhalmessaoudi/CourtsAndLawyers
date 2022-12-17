@@ -1,3 +1,3 @@
 export default {
-  brand: "Courts And Lawyers",
+  BRAND: "Courts And Lawyers",
 };

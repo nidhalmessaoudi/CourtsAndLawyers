@@ -11,6 +11,7 @@ import { MongoClient } from "mongodb";
 import { v4 as uuid } from "uuid";
 
 import authRoutes from "./routes/authRoutes";
+import { serverErrorHandler } from "./controllers/errorController";
 
 const app = express();
 
@@ -46,7 +47,7 @@ export function setupSessionAndRunMiddlewares(client: MongoClient) {
       name: "usersid",
       resave: false,
       saveUninitialized: false,
-      unset: "keep",
+      unset: "destroy",
     })
   );
 
@@ -59,6 +60,9 @@ export function setupSessionAndRunMiddlewares(client: MongoClient) {
 
   // Attach HTTP Headers
   app.use(helmet());
+
+  // Remove Express Header
+  app.disable("x-powered-by");
 
   // JSON Body Parser
   app.use(express.json({ limit: "50kb" }));
@@ -75,7 +79,11 @@ export function setupSessionAndRunMiddlewares(client: MongoClient) {
     res.end("Hello from the other side!!!");
   });
 
+  // Server Routes
   app.use(authRoutes);
+
+  // Error Handler
+  app.use(serverErrorHandler);
 }
 
 export default app;

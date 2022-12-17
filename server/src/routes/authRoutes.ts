@@ -9,6 +9,8 @@ router.get(
   authController.getDashboard
 );
 
+router.get("/logout", authController.getLogOut);
+
 router.use(authController.redirectIfAuthenticated);
 
 router

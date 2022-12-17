@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema<IUser, {}, IUserMethods>({
 
 // Hash password before saving the doc
 userSchema.pre("save", async function (next) {
-  const hashedPassword = await bcrypt.hash(this.password, 12);
+  const hashedPassword = await bcrypt.hash(this.password, 14);
   this.password = hashedPassword;
   next();
 });
