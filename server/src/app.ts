@@ -11,6 +11,7 @@ import { MongoClient } from "mongodb";
 import { v4 as uuid } from "uuid";
 
 import authRoutes from "./routes/authRoutes";
+import dashboardRoutes from "./routes/dashboardRoutes";
 import { serverErrorHandler } from "./controllers/errorController";
 
 const app = express();
@@ -81,6 +82,7 @@ export function setupSessionAndRunMiddlewares(client: MongoClient) {
 
   // Server Routes
   app.use(authRoutes);
+  app.use(dashboardRoutes);
 
   // Error Handler
   app.use(serverErrorHandler);

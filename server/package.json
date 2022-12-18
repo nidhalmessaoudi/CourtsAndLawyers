@@ -4,9 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "concurrently \"npx tsc\" \"node tools/copyAssets.js\"",
-    "build:prod": "concurrently \"cross-env NODE_ENV=production\" \"npm run build\"",
-    "start": "concurrently \"npx tsc --watch\" \"nodemon --watch src -e ts,js,css,pug tools/copyAssets.js\" \"nodemon dist/server.js\""
+    "watch-server": "npx tsc --watch",
+    "build-server": "npx tsc",
+    "watch-dashboard": "nodemon --watch src/dashboard -e ts,tsx,css,png,jpg,jpeg,json --ignore src/dashboard/build tools/buildDashboard.js",
+    "watch-static": "nodemon --watch src -e ts,js,css,pug tools/copyAssets.js",
+    "build-static": "node tools/copyAssets.js",
+    "build": "concurrently \"npm:build-server\" \"npm:build-static\"",
+    "build-prod": "concurrently \"cross-env NODE_ENV=production\" \"npm:build\"",
+    "start": "concurrently \"npm:watch-server\" \"npm:watch-dashboard\" \"npm:watch-static\" \"nodemon dist/server.js\""
   },
   "repository": {
     "type": "git",
