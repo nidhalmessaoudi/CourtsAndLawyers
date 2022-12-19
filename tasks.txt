@@ -4,3 +4,9 @@
  -> Make the API production-ready.
  -> Setup the client-side.
  -> Start designing pages.
+
+ TODAY'S TASKS
+  -> Design and build the dashboard page.
+  -> Integrate a calendar view in the dashboard.
+  -> Make the dashboard mobile-friendly.
+  -> Build the admin control panel.
