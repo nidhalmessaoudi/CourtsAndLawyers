@@ -35,6 +35,21 @@ export function isAuthenticated(fallbackRoute: string) {
   };
 }
 
+export function isAuthenticatedAPI(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.session.user) {
+    return next();
+  } else {
+    res.status(403).json({
+      status: "fail",
+      message: "You need to be logged in to access this route.",
+    });
+  }
+}
+
 export function redirectIfAuthenticated(
   req: Request,
   res: Response,

@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+  padding-left: 12rem;
+  background-color: inherit;
+  position: fixed;
+  top: 4.625rem;
+  left: 0;
+  right: 75%;
+  bottom: 0;
+  z-index: 999;
+  height: calc(100vh - 4.625rem);
+  min-width: fit-content;
+  /* overflow: scroll; */
+}
+
+.brand {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand .name {
+  text-transform: uppercase;
+}
+
+.brand .icon {
+  transform: rotate(180deg);
+  font-size: 1.4rem;
+  padding: 12px;
+  border-radius: 50px;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.brand .icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.items {
+  padding: 2rem 0;
+}
+
+.item {
+  padding: 10px 16px;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.item.active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.item > *:not(:last-child) {
+  margin-right: 10px;
+  font-size: 1.4rem;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 1rem;
+}
