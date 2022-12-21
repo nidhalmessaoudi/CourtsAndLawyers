@@ -1,20 +1,30 @@
+import { useState } from "react";
+
 import Diary from "./components/Diary";
 import Main from "./components/Main";
+import Modal from "./components/Modal";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
 function App() {
+  const [showModal, setShowModal] = useState(true);
+
+  function modalCloseHandler() {
+    setShowModal(false);
+  }
+
   return (
     <>
       <Navbar />
       <Sidebar />
-      <Main>
-        <h1>
-          Hello from the other side!!! You accessed this page because you are
-          logged in!
-        </h1>
+      <Main title="E-Diary">
         <Diary />
       </Main>
+      {showModal && (
+        <Modal heading="New Case" closeIt={modalCloseHandler}>
+          Create a New Case
+        </Modal>
+      )}
     </>
   );
 }

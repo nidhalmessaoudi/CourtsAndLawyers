@@ -1,5 +1,12 @@
 .container {
-  padding: 6.625rem 6rem;
+  padding: 6.625rem 8rem;
   padding-left: 32rem;
-  height: 1000rem;
+}
+
+.topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }

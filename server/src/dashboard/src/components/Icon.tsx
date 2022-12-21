@@ -4,6 +4,7 @@ import * as icons from "ionicons/icons";
 interface Props {
   name: string;
   className?: string;
+  onClick?: () => void;
 }
 
 function Icon(props: Props) {
@@ -13,6 +14,7 @@ function Icon(props: Props) {
     <IonIcon
       className={props.className}
       icon={iconsStr[props.name] as string}
+      onClick={props.onClick}
     />
   );
 }
