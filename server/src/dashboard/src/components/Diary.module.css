@@ -1,0 +1,28 @@
+.topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.left,
+.calendar-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.calendar-control > *:not(:last-child) {
+  margin-right: 5px;
+}
+
+.icon {
+  font-size: 28px;
+  user-select: none;
+  cursor: pointer;
+}

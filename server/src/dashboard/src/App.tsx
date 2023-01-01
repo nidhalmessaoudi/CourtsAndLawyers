@@ -17,7 +17,7 @@ function App() {
     <>
       <Navbar />
       <Sidebar />
-      <Main title="E-Diary">
+      <Main>
         <Diary />
       </Main>
       {showModal && (
