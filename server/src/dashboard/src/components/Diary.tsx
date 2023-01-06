@@ -1,8 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 
 import Calendar from "@toast-ui/react-calendar";
-import CalendarButton from "./CalendarButton";
-import Button from "./Button";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import IconButton from "@mui/material/IconButton";
 
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import classes from "./Diary.module.css";
@@ -63,26 +66,39 @@ function Diary() {
         <div className={classes.left}>
           <h1>E-Diary</h1>
           <div className={classes["calendar-control"]}>
-            {/* <Icon
-              name="chevronBackOutline"
-              className={classes.icon}
+            <IconButton
+              aria-label="Previous Month"
+              color="warning"
               onClick={calendarHandler("back")}
-            /> */}
-            <CalendarButton text="Today" onClick={calendarHandler("today")} />
-            {/* <Icon
-              name="chevronForwardOutline"
-              className={classes.icon}
+            >
+              <ArrowBackIosOutlinedIcon />
+            </IconButton>
+            <Button
+              variant="outlined"
+              color="warning"
+              onClick={calendarHandler("today")}
+            >
+              Today
+            </Button>
+            <IconButton
+              aria-label="Next Month"
+              color="warning"
               onClick={calendarHandler("next")}
-            /> */}
+            >
+              <ArrowForwardIosOutlinedIcon />
+            </IconButton>
           </div>
-          <p>{calendarDate}</p>
+          <Typography>{calendarDate}</Typography>
         </div>
         <Button
-          text="New Case"
+          variant="contained"
+          color="warning"
           onClick={() => {
             console.log("cliked");
           }}
-        />
+        >
+          New Case
+        </Button>
       </div>
       <Calendar
         usageStatistics={false}

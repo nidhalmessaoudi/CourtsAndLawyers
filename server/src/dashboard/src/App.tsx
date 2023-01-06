@@ -1,4 +1,5 @@
 import CssBaseline from "@mui/material/CssBaseline";
+import { useState } from "react";
 
 import Diary from "./components/Diary";
 import Main from "./components/Main";
@@ -6,11 +7,17 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
 function App() {
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
+
+  function menuHandler() {
+    setSidebarIsOpen((oldState) => !oldState);
+  }
+
   return (
     <>
       <CssBaseline />
-      <Navbar />
-      <Sidebar />
+      <Navbar menuHandler={menuHandler} />
+      <Sidebar isOpen={sidebarIsOpen} />
       <Main>
         <Diary />
       </Main>

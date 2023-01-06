@@ -15,7 +15,11 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 import classes from "./Navbar.module.css";
 
-function Navbar() {
+interface Props {
+  menuHandler: () => void;
+}
+
+function Navbar(props: Props) {
   const [profileMenuAnchor, setProfileMenuAnchor] =
     useState<null | HTMLElement>(null);
 
@@ -28,7 +32,10 @@ function Navbar() {
   }
 
   return (
-    <AppBar color="primary">
+    <AppBar
+      color="transparent"
+      sx={{ boxShadow: "none", borderBottom: "1px solid rgba(0, 0, 0, 0.12)" }}
+    >
       <Toolbar>
         <IconButton
           size="large"
@@ -36,6 +43,7 @@ function Navbar() {
           color="inherit"
           aria-label="The Dashboard Menu"
           sx={{ mr: 1 }}
+          onClick={props.menuHandler}
         >
           <MenuIcon />
         </IconButton>
@@ -75,7 +83,7 @@ function Navbar() {
             elevation: 0,
             sx: {
               overflow: "visible",
-              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.18))",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.10))",
               mt: 0.8,
               "&:before": {
                 content: '""',
