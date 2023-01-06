@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 
 import Calendar from "@toast-ui/react-calendar";
 import CalendarButton from "./CalendarButton";
-import Icon from "./Icon";
 import Button from "./Button";
 
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
@@ -64,17 +63,17 @@ function Diary() {
         <div className={classes.left}>
           <h1>E-Diary</h1>
           <div className={classes["calendar-control"]}>
-            <Icon
+            {/* <Icon
               name="chevronBackOutline"
               className={classes.icon}
               onClick={calendarHandler("back")}
-            />
+            /> */}
             <CalendarButton text="Today" onClick={calendarHandler("today")} />
-            <Icon
+            {/* <Icon
               name="chevronForwardOutline"
               className={classes.icon}
               onClick={calendarHandler("next")}
-            />
+            /> */}
           </div>
           <p>{calendarDate}</p>
         </div>

@@ -1,6 +1,5 @@
 import { useEffect, useRef, MouseEvent as MV } from "react";
 
-import Icon from "./Icon";
 import classes from "./UserMenu.module.css";
 
 interface Props {
@@ -46,7 +45,7 @@ function UserMenu(props: Props) {
   return (
     <div className={classes.container} tabIndex={0} ref={menuRef}>
       <div className={classes.user}>
-        <Icon name="personOutline" className={classes.icon} />
+        {/* <Icon name="personOutline" className={classes.icon} /> */}
         <h4 className={classes.details}>
           <span className={classes.name}>Laurem Ipsum</span>
           <span className={classes.email}>lauremipsum@gmail.com</span>

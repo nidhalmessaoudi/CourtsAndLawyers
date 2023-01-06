@@ -1,41 +1,130 @@
-import { useCallback, useState, MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Logout from "@mui/icons-material/Logout";
+import Settings from "@mui/icons-material/Settings";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
-import Icon from "./Icon";
 import classes from "./Navbar.module.css";
-import UserMenu from "./UserMenu";
 
 function Navbar() {
-  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [profileMenuAnchor, setProfileMenuAnchor] =
+    useState<null | HTMLElement>(null);
 
-  function userMenuClickHandler(e: MouseEvent<HTMLDivElement>) {
-    setShowUserMenu(true);
-
-    if (showUserMenu !== true) {
-      e.stopPropagation();
-    }
+  function openProfileMenu(e: MouseEvent<HTMLElement>) {
+    setProfileMenuAnchor(e.currentTarget);
   }
 
-  const closeHandler = useCallback(function () {
-    setShowUserMenu(false);
-  }, []);
+  function closeProfileMenu() {
+    setProfileMenuAnchor(null);
+  }
 
   return (
-    <div className={classes.container}>
-      <h3 className={classes.brand}>
-        <Icon name="layersOutline" className={classes.icon} />
-        <span className={classes.name}>CourtsAndLawyers</span>
-        <span className={classes.symbol}>NG</span>
-      </h3>
-      {/* <div>
-        <a href="#test">Terms of use</a>
-        <a href="#test">Privacy policy</a>
-      </div> */}
-      <div className={classes.profile} onClick={userMenuClickHandler}>
-        <Icon name="menuOutline" className={classes.icon1} />
-        <Icon name="personCircleOutline" className={classes.icon2} />
-        {showUserMenu && <UserMenu onClose={closeHandler} />}
-      </div>
-    </div>
+    <AppBar color="primary">
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="The Dashboard Menu"
+          sx={{ mr: 1 }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, display: "flex" }}
+        >
+          CourtAndLawyers
+          <span className={classes.symbol}>NG</span>
+        </Typography>
+        <IconButton
+          size="small"
+          sx={{ ml: 2 }}
+          aria-controls="profile-menu"
+          aria-haspopup="true"
+          aria-expanded="false"
+          onClick={openProfileMenu}
+        >
+          <Avatar
+            sx={{
+              width: 32,
+              height: 32,
+              bgcolor: "#9D3C72",
+              textTransform: "uppercase",
+            }}
+          >
+            m
+          </Avatar>
+        </IconButton>
+        <Menu
+          anchorEl={profileMenuAnchor}
+          open={Boolean(profileMenuAnchor)}
+          onClose={closeProfileMenu}
+          id="profile-menu"
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.18))",
+              mt: 0.8,
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <MenuItem>
+            <ListItemIcon>
+              <PersonOutlineIcon fontSize="large" />
+            </ListItemIcon>
+            <div className={classes.user}>
+              <Typography
+                variant="inherit"
+                noWrap
+                sx={{ display: "flex", flexDirection: "column", ml: 1 }}
+              >
+                <span>Laurem Ipsum</span>
+                <span className={classes.email}>lauremipsum@gmail.com</span>
+              </Typography>
+            </div>
+          </MenuItem>
+          <Divider />
+          <MenuItem>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 }
 

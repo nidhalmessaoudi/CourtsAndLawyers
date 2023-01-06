@@ -1,5 +1,3 @@
-import Icon from "./Icon";
-
 import classes from "./CalendarButton.module.css";
 
 interface Props {
@@ -11,11 +9,7 @@ interface Props {
 function CalendarButton(props: Props) {
   return (
     <button className={classes.btn} onClick={props.onClick}>
-      {props.text ? (
-        props.text
-      ) : (
-        <Icon name={props.icon!} className={classes.icon} />
-      )}
+      {props.text}
     </button>
   );
 }
