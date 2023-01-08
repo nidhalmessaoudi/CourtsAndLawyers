@@ -71,7 +71,7 @@ function Navbar(props: Props) {
               textTransform: "uppercase",
             }}
           >
-            m
+            l
           </Avatar>
         </IconButton>
         <Menu

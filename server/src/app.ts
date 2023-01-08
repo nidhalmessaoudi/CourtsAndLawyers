@@ -73,7 +73,7 @@ export function setupSessionAndRunMiddlewares(client: MongoClient) {
   app.set("view engine", "pug");
 
   // Attach HTTP Headers
-  app.use(helmet());
+  // app.use(helmet());
 
   // Remove Express Header
   app.disable("x-powered-by");

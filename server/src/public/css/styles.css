@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cl-navbar {
+  padding: 0.5rem 1rem;
+  margin: 2rem 4rem;
+  border-radius: 50px;
+  box-shadow: 0px 0px 70px -14px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.cl-navbar-collapse {
+  flex-grow: unset;
+}
+
+.cl-navbar-brand {
+  display: flex;
+  flex-direction: row;
+}
+
+.cl-navbar span:last-child {
+  align-self: flex-start;
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 5px;
+}
+
+.cl-main {
+  margin: 14rem 10rem 0 10rem;
+}
+
+.highlight {
+  align-items: center;
+}
+
+.highlight-heading {
+  padding-right: 6rem;
+}
+
+.highlight-heading h1 {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.highlight-heading p {
+  font-weight: bold;
+  font-size: 1.05rem;
+  opacity: 0.6;
+  padding-right: 18rem;
+}
+
+.highlight-btns a {
+  text-decoration: none;
+}
+
+.highlight-btns > *:first-child {
+  margin-right: 10px;
+}
+
+.highlight-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 1710px) {
+  .cl-main {
+    margin: 14rem 6rem 0 6rem;
+  }
+  .highlight-heading {
+    padding-right: 1rem;
+  }
+
+  .highlight-heading h1 {
+    font-size: 4rem;
+  }
+
+  .highlight-heading p {
+    font-weight: bold;
+    font-size: 1.05rem;
+    opacity: 0.6;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .highlight-heading {
+    padding-right: 0;
+  }
+  .navbar-nav {
+    align-items: flex-start;
+  }
+
+  .highlight-image {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cl-navbar {
+    margin: 1rem;
+  }
+  .cl-main {
+    margin: 8rem 2rem 0 2rem;
+  }
+
+  .highlight-heading {
+    text-align: center;
+  }
+
+  .highlight-heading h1 {
+    font-size: 2rem;
+  }
+
+  .highlight-heading p {
+    padding: 0 4rem;
+  }
+}

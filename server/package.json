@@ -7,7 +7,7 @@
     "watch-server": "npx tsc --watch",
     "build-server": "npx tsc",
     "watch-dashboard": "nodemon --watch src/dashboard -e ts,tsx,css,png,jpg,jpeg,json --ignore src/dashboard/build tools/buildDashboard.js",
-    "watch-static": "nodemon --watch src -e ts,js,css,pug tools/copyAssets.js",
+    "watch-static": "nodemon --watch src -e ts,js,html,css,pug tools/copyAssets.js",
     "build-static": "node tools/copyAssets.js",
     "build": "concurrently \"npm:build-server\" \"npm:build-static\"",
     "build-prod": "concurrently \"cross-env NODE_ENV=production\" \"npm:build\"",
