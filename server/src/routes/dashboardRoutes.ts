@@ -7,8 +7,6 @@ const router = express.Router();
 
 const dashboardFolder = path.join(__dirname, "..", "build");
 
-console.log(dashboardFolder);
-
 router.use(
   "/dashboard",
   isAuthenticated("/login"),

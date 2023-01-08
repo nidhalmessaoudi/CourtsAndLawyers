@@ -10,11 +10,24 @@ import MongoStore from "connect-mongo";
 import { MongoClient } from "mongodb";
 import { v4 as uuid } from "uuid";
 
+import publicRoutes from "./routes/publicRoutes";
 import authRoutes from "./routes/authRoutes";
 import dashboardRoutes from "./routes/dashboardRoutes";
+import APIRoutes from "./routes/API/APIRoutes";
 import { serverErrorHandler } from "./controllers/errorController";
+import { IUser } from "./models/User";
+import { HydratedDocument } from "mongoose";
 
 const app = express();
+
+// Express Request object extension
+declare global {
+  namespace Express {
+    interface Request {
+      user?: HydratedDocument<IUser> | null;
+    }
+  }
+}
 
 // Session type declaration
 declare module "express-session" {
@@ -75,14 +88,13 @@ export function setupSessionAndRunMiddlewares(client: MongoClient) {
   // Prevent Parameter Pollution
   app.use(hpp());
 
-  // Main Routes
-  app.get("/", (req, res) => {
-    res.end("Hello from the other side!!!");
-  });
-
   // Server Routes
+  app.use(publicRoutes);
   app.use(authRoutes);
   app.use(dashboardRoutes);
+
+  // API Routes
+  app.use("/api/v1/", APIRoutes);
 
   // Error Handler
   app.use(serverErrorHandler);

@@ -26,27 +26,41 @@ function createAndSaveUserSession(
 }
 
 export function isAuthenticated(fallbackRoute: string) {
-  return function (req: Request, res: Response, next: NextFunction) {
-    if (req.session.user) {
+  return async function (req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.session.user) {
+        throw new Error("Forbidden");
+      }
+
+      req.user = await User.findOne({ _id: req.session.user });
+
       return next();
-    } else {
+    } catch (err) {
       res.redirect(fallbackRoute);
+      return;
     }
   };
 }
 
-export function isAuthenticatedAPI(
+export async function isAuthenticatedAPI(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  if (req.session.user) {
+  try {
+    if (!req.session.user) {
+      throw new Error("Forbidden");
+    }
+
+    req.user = await User.findOne({ _id: req.session.user });
+
     return next();
-  } else {
+  } catch (err) {
     res.status(403).json({
       status: "fail",
       message: "You need to be logged in to access this route.",
     });
+    return;
   }
 }
 

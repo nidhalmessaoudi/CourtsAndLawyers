@@ -6,7 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
-import NoteOutlinedIcon from "@mui/icons-material/NoteOutlined";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import AttachFileOutlinedIcon from "@mui/icons-material/AttachFileOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
@@ -25,7 +25,7 @@ function Sidebar(props: Props) {
   const listItems = [
     ["E-Diary", <CalendarMonthOutlinedIcon />, null],
     ["Lists", <FormatListBulletedOutlinedIcon />, null],
-    ["Notes", <NoteOutlinedIcon />, null],
+    ["Notes", <ContentCopyOutlinedIcon />, null],
     ["Resources", <AttachFileOutlinedIcon />, null],
     ["Contact Us", <ChatOutlinedIcon />, null],
     [
@@ -39,6 +39,7 @@ function Sidebar(props: Props) {
       <OpenInNewOutlinedIcon fontSize="small" />,
     ],
   ];
+
   function renderListItems() {
     return listItems.map((item, i) => (
       <ListItem key={nanoid(6)} disablePadding>

@@ -1,9 +1,12 @@
 import express from "express";
 
-import { isAuthenticatedAPI } from "../../controllers/authController";
+import * as caseController from "../../controllers/caseController";
 
 const router = express.Router();
 
-router.use(isAuthenticatedAPI);
+router
+  .route("/")
+  .get(caseController.getUserCases)
+  .post(caseController.postCase);
 
-router.get("/cases");
+export default router;

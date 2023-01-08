@@ -21,8 +21,13 @@
   margin-right: 5px;
 }
 
-.icon {
-  font-size: 28px;
-  user-select: none;
-  cursor: pointer;
+.calendar {
+  text-align: center;
+}
+
+.calendar-day-name {
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.5);
 }

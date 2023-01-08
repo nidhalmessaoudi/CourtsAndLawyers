@@ -1,5 +1,7 @@
-import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 import Diary from "./components/Diary";
 import Main from "./components/Main";
